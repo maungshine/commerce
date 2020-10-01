@@ -1,0 +1,132 @@
+body {
+    padding: 10px;
+}
+
+.wrapper {
+  padding: 30px;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+}
+
+.item {
+  display: inline-block;
+}
+
+.listing_post {
+  /* border: 1px solid red; */
+  padding: 20px;
+  width: 70%;
+  display: grid;
+  grid-template-columns: auto auto;
+  box-shadow: 2px 2px 5px gray;
+}
+
+.item_image {
+  /* border: 1px solid blue; */
+  padding: 0px 20px 20px 20px;
+  width: 300px;
+  height: 250px;
+  display: inline-block;
+  /* position: absolute; */
+  top: 20px;
+}
+
+.post_data {
+  /* border: 1px solid yellow; */
+  padding: 0px 20px 0px 20px;
+  display: inline-block;
+  text-align: left;
+
+}
+
+.post_image {
+  display: inline-block;
+}
+
+.data {
+  padding-right: 20px;
+}
+
+.bid-text-box {
+  width: 50px;
+}
+
+hr {
+  border-top: none;
+}
+
+.comment-box, .comment-box-text {
+  grid-column: 1/3;
+  text-align: left;
+  padding: 10px;
+}
+
+.comment {
+  width: 70%;
+}
+
+.comment-button {
+  display: block;
+}
+
+
+.comment-line {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.cm {
+  display: inline-block;
+  text-indent: 10px;
+}
+
+ /* style create listing */
+
+ .create-listing {
+   padding: 20px;
+   text-align: center;
+ }
+
+.create-listing-form {
+  display: inline-block;
+  text-align: left;
+}
+
+.form {
+  padding: 2px 10px 20px 10px;
+}
+
+.label {
+  padding: 0px 10px;
+}
+
+.input-box {
+  width: 100%;
+}
+
+.button {
+  padding: 10px;
+}
+
+.watchlist_count {
+  display: inline-block;
+  /* border: 1px solid black; */
+  background-color: #ff0000;
+  border-radius: 25%;
+  color: #ffffff;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 80px;
+  bottom: 30px;
+  text-align: center;
+  margin: 0;
+}
+
+.counter {
+  display: inline-block;
+  position: relative;
+  bottom: 3px;
+}

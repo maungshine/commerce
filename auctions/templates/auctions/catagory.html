@@ -1,0 +1,9 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <ul>
+    {% for catagory in catagories %}
+        <li><a href="{% url 'catagory_items' catagory.id %}">{{ catagory.catagory.capitalize }}</a></li>
+    {% endfor %}     
+    </ul>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if winner_bid and request.user == listing_item.list_user and not listing_item.is_active %}
+  <div>
+    <p>{{ winner_bid.bid_user }} is the winner with the bid price of {{ winner_bid.bid_price }} USD.</p>
+  </div>
+{% elif not winner_bid and request.user == listing_item.list_user and not listing_item.is_active %}
+  <div>
+    <h4>No Bids for this listing.</h4>
+  </div>
+{% elif winner_bid and request.user == listing_item.list_user and listing_item.is_active %}
+  <div>
+    <p>{{ winner_bid.bid_user }} has made the most bid price of {{ winner_bid.bid_price }} USD for this item so far.</p>
+  </div>
+{% elif winner_bid and request.user == winner_bid.bid_user and not listing_item.is_active %}
+  <div>
+    <p>{{ winner_bid.bid_user }} has made the most bid price of {{ winner_bid.bid_price }} USD for this item so far.</p>
+  </div>
+{% endif %}
+<div class="watch-list">
+    
+        {% if request.user != listing_item.list_user %}
+        {% if watchlist %}
+            <form action="{% url 'remove_from_watchlist' watchlist.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Remove From Watchlist</button>
+            </form>
+        {% else %}
+            <form action="{% url 'add-to-watchlist' listing_item.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Add To Watchlist</button>
+            </form>
+        {% endif %}
+        {% endif %}
+    
+</div>
+{% if request.user == listing_item.list_user and listing_item.is_active %}
+<div>
+  <form action="{% url 'close_listing' listing_item.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Close Listing</button>
+  </form>
+</div>
+{% endif %}
+<div class="listing_post">
+    <div class="post_data">
+      <h3>{{ listing_item.item_name }}</h3>
+      <p><span class="data">Listed by:</span>{{ listing_item.list_user }}</p>
+      {% if winner_bid %}
+      <p><span class="data">Current Price:</span>{{ winner_bid.bid_price }} USD</p>
+      {% else %}
+      <p><span class="data">Price:</span>{{ listing_item.item_price }} USD</p>
+      {% endif %}
+      <p><span class="data">Description:</span> {{ listing_item.item_description }}</p>
+      <p><span class="data">Listed at:</span> {{ listing_item.date_placed }}</p>
+      <p><span class="data">Number of bids:</span>{{ listing_item.item_bids.all|length }} Bid(s)</p>
+      <form class="" action="{% url 'place_bids' listing_item.id %}" method="post">
+        {% csrf_token %}
+        <input class="bid-text-box" type="text" name="bid" required>
+        <input type="submit" value="Place Bid">
+      </form>
+    </div>
+    <div class="post_image">
+      <figure>
+        <img src="{{ listing_item.item_image.url }}" alt="{{ listing_item.item_name }}" class="item_image">
+      </figure>
+    </div>
+    <div class="comment-box">
+      <form class="" action="{% url 'comment' listing_item.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="comment" rows="3" cols="50" required></textarea>
+        <input class="comment-button"type="submit" value="Comment">
+      </form>
+    </div>
+    <div class="comment-box-text">
+      {% for comment in listing_item.item_comments.all %}
+        <div class="comment-line">
+          <h6>{{ comment.comment_uesr.username }}</h6>
+          <span class="cm">{{ comment.comment }}</span>
+        </div>
+        <span class="cm">{{ comment.comment_date }}</span>
+        <hr>
+      {% endfor %}
+    </div>
+
+  </div>
+ 
+{% endblock %}

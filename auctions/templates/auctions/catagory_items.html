@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>{{ catagory.catagory.capitalize }}</h2>
+
+<div class="wrapper">
+
+  {% for active_listing in catagory_items %}
+  {% if active_listing.is_active %}
+  <div class="listing_post">
+    <div class="post_data">
+      <h3><a href="{% url 'listing' active_listing.id %}">{{active_listing.item_name }}</a></h3>
+      <p><span class="data">Price:</span>{{ active_listing.item_price }} USD</p>
+      <p><span class="data">Listed at:</span> {{ active_listing.date_placed }}</p>
+      <p><span class="data">Number of bids:</span>{{ active_listing.item_bids.all|length }} Bid(s)</p>
+    </div>
+    <div class="post_image">
+      <figure>
+        <img src="{{ active_listing.item_image.url }}" alt="{{ active_listing.item_name }}" class="item_image">
+      </figure>
+    </div>
+  </div>
+  <hr>
+  {% endif %}
+  {% empty %}
+  <h4>No items in this catagory!</h4>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% for watchlist in watchlists %}
+    <div class="listing_post">
+        <div class="post_data">
+          <h3><a href="{% url 'listing' watchlist.watchlist_item.id %}">{{ watchlist.watchlist_item.item_name }}</a></h3>
+          <p><span class="data">Price:</span>{{ watchlist.watchlist_item.item_price }} USD</p>
+          <p><span class="data">Listed at:</span> {{ watchlist.watchlist_item.date_placed }}</p>
+          <p><span class="data">Number of bids:</span>{{ watchlist.watchlist_item.item_bids.all|length }} Bid(s)</p>
+        </div>
+        <div class="post_image">
+          <figure>
+            <img src="{{ watchlist.watchlist_item.item_image.url }}" alt="{{ watchlist.watchlist_item.item_name }}" class="item_image">
+          </figure>
+        </div>
+        
+
+      </div>
+      <hr>
+    {% empty %}
+        <h3>No watchlist added</h3>   
+    {% endfor %}  
+{% endblock %}
